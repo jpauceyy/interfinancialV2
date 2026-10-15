@@ -107,7 +107,7 @@
   /* mobile dropdown menu */
   .mobile-menu {
     position: fixed; z-index: 49;
-    top: calc(1.4vw + clamp(3.25rem, 6.2vw, 6.5rem) + 0.5rem);
+    top: calc(1.4vw + 4rem + 0.5rem); /* below the phone nav bar (4rem tall) */
     left: 2.5vw; right: 2.5vw;
     display: grid; gap: 0.25rem;
     padding: 1rem;

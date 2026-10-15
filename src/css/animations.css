@@ -118,6 +118,13 @@
 /* logo inset (kept off the nav padding so the links stay exactly centred) */
 .nav > :first-child { margin-left: 1.3vw; transition: margin 0.7s var(--ease-out-expo); }
 .nav.is-compact > :first-child { margin-left: 1.1vw; }
+
+/* phones: a taller bar so the 40px menu button sits inside it with room around it */
+@media (max-width: 47.99rem) {
+  .nav { height: 4rem; padding: 0 0.5rem; }
+  .nav.is-compact { height: 3.5rem; padding: 0 0.5rem; }
+  .nav > :first-child, .nav.is-compact > :first-child { margin-left: 0.6rem; }
+}
 /* parallax images start oversized so drift never exposes edges */
 [data-parallax] { transform: scale(1.18); will-change: transform; }
 
