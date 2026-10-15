@@ -6,9 +6,10 @@
   "scripts": {
     "build:pages": "node scripts/build-pages.mjs",
     "build:css": "tailwindcss -i ./src/css/main.css -o ./dist/css/style.css --minify",
-    "build": "npm run build:pages && npm run build:css",
+    "build": "npm run build:pages && npm run build:css && npm run export",
     "dev": "npm run build:pages && tailwindcss -i ./src/css/main.css -o ./dist/css/style.css --watch",
-    "serve": "npx --yes serve ."
+    "serve": "npx --yes serve .",
+    "export": "node scripts/export.mjs"
   },
   "devDependencies": {
     "@tailwindcss/cli": "^4.1.4",
