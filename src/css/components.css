@@ -107,8 +107,15 @@
 @media (max-width: 47.99rem) {
   [data-hscroll-track] { scrollbar-width: none; -webkit-overflow-scrolling: touch; }
   [data-hscroll-track]::-webkit-scrollbar { display: none; }
-  [data-hscroll-track] > figure { scroll-snap-align: start; }
-  [data-hscroll-track] > figure:last-child { padding-right: 1rem; }
+}
+/* phone carousel drift: scrollLeft carries whole pixels, --drift the sub-pixel remainder (set by horizontal.js) */
+@media (max-width: 47.99rem) { [data-hscroll-track] > * { translate: calc(var(--drift, 0) * -1px) 0; } }
+/* the duplicate card set that makes the phone carousel loop seamlessly is phone-only */
+@media (min-width: 48rem) { [data-hscroll-track] > [data-clone] { display: none; } }
+
+/* phones: cards were sized in vw, leaving the icon touching the title and a ~7px inset */
+@media (max-width: 47.99rem) {
+  .card { gap: 1.75rem; padding: 1.25rem; }
 }
 
 /*
