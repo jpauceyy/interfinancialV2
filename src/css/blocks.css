@@ -28,7 +28,7 @@
     transition: background-color 0.4s, color 0.4s, border-color 0.4s;
   }
   /* chip sized to match a .btn-pill beside it */
-  .chip--btn { min-height: var(--btn-h); padding-inline: 1.5em; }
+  .chip--btn { min-height: var(--btn-h); padding-inline: max(1.25rem, 1.5em); }
   .chip:hover { background: var(--color-forest); color: #fff; border-color: var(--color-forest); }
 
   /* tick list */

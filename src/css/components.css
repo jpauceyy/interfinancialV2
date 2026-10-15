@@ -17,8 +17,8 @@
   /* pill button with circular arrow */
   .btn-pill {
     @apply inline-flex items-center justify-between uppercase text-micro tracking-wide;
-    gap: 1.6vw;
-    padding: 0.3vw 0.3vw 0.3vw 1.4vw;
+    gap: max(0.9rem, 1.6vw);
+    padding: max(0.25rem, 0.3vw) max(0.25rem, 0.3vw) max(0.25rem, 0.3vw) max(1.25rem, 1.4vw); /* floors keep phones from feeling cramped */
     min-height: var(--btn-h);
     background: var(--color-forest);
     color: #fff;
