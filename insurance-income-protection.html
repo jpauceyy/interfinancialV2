@@ -34,8 +34,8 @@
 <header>
   <nav class="nav" aria-label="Primary">
     <a href="index.html" class="flex items-center gap-[0.5vw] text-[clamp(1rem,1.9vw,2.2rem)] font-semibold tracking-tight">
-      <img src="assets/logo.svg" alt="" class="h-[1.9vw] min-h-4 w-auto" width="40" height="40">
-      INTERFINANCIAL
+      <img src="assets/logo.svg" alt="" class="h-[1.9vw] min-h-4 w-auto max-md:h-9" width="40" height="40">
+      <span class="max-md:sr-only">INTERFINANCIAL</span><!-- phones: crest only; name kept for screen readers -->
     </a>
     <ul class="hidden md:flex items-center gap-[2.4vw]">
       <li><a class="nav__link" data-nav="home" href="index.html">Home</a></li>
@@ -44,7 +44,7 @@
       <li><a class="nav__link" data-nav="insurance" aria-current="page" href="insurance-income-protection.html">Insurance</a></li>
       <li><a class="nav__link" data-nav="contact" href="contact.html">Contact</a></li>
     </ul>
-    <a href="tel:01630642868" class="hidden md:grid uppercase text-micro tracking-wide text-white bg-forest rounded-full px-[1.7vw] h-[70%] min-h-9 place-items-center transition-colors hover:bg-black">Call 01630 642868</a>
+    <a href="tel:01630642868" class="hidden md:grid md:justify-self-end uppercase text-micro tracking-wide text-white bg-forest rounded-full px-[1.7vw] h-[70%] min-h-9 place-items-center transition-colors hover:bg-black">Call 01630 642868</a>
     <button type="button" class="md:hidden grid size-10 place-items-center rounded-full bg-forest text-white" aria-expanded="false" aria-controls="mobile-menu" data-menu-toggle>
       <span class="sr-only">Menu</span>
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 7h18M3 12h18M3 17h18"/></svg>
@@ -63,7 +63,7 @@
 
 <!-- 1 · HERO (split: title + floating image) -->
 <section class="relative z-10">
-  <div class="panel h-svh min-h-[560px] bg-forest text-white grid md:grid-cols-12 items-end gap-8 !pt-[11vw]" data-reveal>
+  <div class="panel h-svh min-h-[560px] bg-forest text-white grid md:grid-cols-12 items-end gap-8 !pt-[11vw] max-md:h-auto max-md:min-h-0 max-md:gap-6 max-md:!pt-24" data-reveal>
     <div class="md:col-span-8 flex flex-col gap-[2.4vw] pb-[1vw]">
       <p class="eyebrow rise">Insurance &amp; income protection</p>
       <h1 class="page-title hero-title !text-[clamp(2.6rem,7.3vw,9rem)]" data-words>
@@ -111,7 +111,7 @@
 
 <!-- 3 · FAMILY LIFE INSURANCE (rate-style cards with cover charts, stacked) -->
 <section id="family" class="stack-item z-30" data-stack>
-  <div class="panel bg-lime flex flex-col justify-between gap-10 max-md:!pt-24" data-reveal>
+  <div class="panel bg-lime flex flex-col justify-between gap-10 max-md:!pt-16" data-reveal>
     <div class="grid md:grid-cols-12 gap-6 pt-[0.6vw]">
       <h2 class="display text-h2 md:col-span-7">
         <span class="cut" style="--i:0">Family life</span>
@@ -268,7 +268,7 @@
 
 <!-- 6 · MORTGAGE PAYMENT PROTECTION (new, stacked) -->
 <section id="payment-protection" class="stack-item z-50" data-stack>
-  <div class="panel bg-rust text-white flex flex-col justify-center gap-[6vw] !pt-24 md:!pt-[7vw]" data-reveal>
+  <div class="panel bg-rust text-white flex flex-col justify-center gap-[6vw] max-md:!pt-16 md:!pt-[7vw]" data-reveal>
     <div class="grid md:grid-cols-12 gap-6">
       <div class="md:col-span-7 flex flex-col gap-[1.6vw]">
         <p class="eyebrow rise">Mortgage payment protection</p>

@@ -112,9 +112,12 @@
   left: 10vw;
   right: 10vw;
   height: clamp(2.5rem, 3.8vw, 4.25rem);
-  padding: 0 0.5vw 0 1.6vw;
+  padding: 0 0.5vw;
   box-shadow: 0 0.6vw 2vw rgb(0 0 0 / 0.18);
 }
+/* logo inset (kept off the nav padding so the links stay exactly centred) */
+.nav > :first-child { margin-left: 1.3vw; transition: margin 0.7s var(--ease-out-expo); }
+.nav.is-compact > :first-child { margin-left: 1.1vw; }
 /* parallax images start oversized so drift never exposes edges */
 [data-parallax] { transform: scale(1.18); will-change: transform; }
 

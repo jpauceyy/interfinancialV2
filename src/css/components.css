@@ -1,7 +1,7 @@
 @layer components {
   /* full-bleed section panel */
   .panel {
-    @apply relative w-full min-h-svh overflow-hidden;
+    @apply relative w-full overflow-hidden;
     border-radius: 0;
     padding: var(--spacing-gutter);
   }
@@ -37,11 +37,12 @@
   .btn-pill:hover .btn-pill__dot { transform: translateX(0.25rem); }
 
   /* nav */
+  /* desktop: equal outer columns keep the links centred whatever the logo/button widths */
   .nav {
-    @apply fixed z-50 flex items-center justify-between;
+    @apply fixed z-50 flex items-center justify-between md:grid md:grid-cols-[1fr_auto_1fr];
     top: 1.4vw; left: 2.5vw; right: 2.5vw;
     height: clamp(3.25rem, 6.2vw, 6.5rem);
-    padding: 0 0.9vw 0 2.2vw;
+    padding: 0 0.9vw; /* even padding so the centre column is truly centred; logo gets its inset below */
     background: rgb(252 252 247 / 0.96);
     border-radius: 999px;
     backdrop-filter: blur(10px);
@@ -99,5 +100,24 @@
 @layer components {
   .stack-item .panel {
     padding-bottom: calc(var(--spacing-gutter) * 1.9);
+  }
+}
+
+/* homepage slider as a swipe carousel on phones */
+@media (max-width: 47.99rem) {
+  [data-hscroll-track] { scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+  [data-hscroll-track]::-webkit-scrollbar { display: none; }
+  [data-hscroll-track] > figure { scroll-snap-align: start; }
+  [data-hscroll-track] > figure:last-child { padding-right: 1rem; }
+}
+
+/*
+ * Full-screen sections (and the stacking effect built on them) only on landscape
+ * screens from tablet width up. Phones and tall portrait tablets size each section
+ * to its content, so short sections don't open up large empty gaps.
+ */
+@layer components {
+  @media (min-width: 48rem) and (orientation: landscape) {
+    .panel { min-height: 100svh; }
   }
 }
