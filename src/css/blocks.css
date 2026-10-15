@@ -1,0 +1,296 @@
+/* Reusable page blocks (inner pages). Built on the same tokens as the homepage. */
+@layer components {
+  .panel--auto { min-height: 0; }
+
+  /* hero title for inner pages */
+  .page-title {
+    @apply uppercase font-medium;
+    letter-spacing: -0.025em;
+    font-size: clamp(2.4rem, 6vw, 7.5rem);
+    line-height: 0.98;
+  }
+
+  .eyebrow {
+    @apply inline-flex items-center gap-[0.6vw] uppercase font-semibold text-micro tracking-wide;
+  }
+  .eyebrow::before {
+    content: "";
+    width: 0.7em; height: 0.7em; border-radius: 999px;
+    background: var(--color-lime);
+  }
+
+  /* pill tag */
+  .chip {
+    @apply inline-flex items-center text-small;
+    padding: 0.55em 1.2em;
+    border: 1px solid color-mix(in srgb, currentColor 35%, transparent);
+    border-radius: 999px;
+    transition: background-color 0.4s, color 0.4s, border-color 0.4s;
+  }
+  /* chip sized to match a .btn-pill beside it */
+  .chip--btn { min-height: var(--btn-h); padding-inline: 1.5em; }
+  .chip:hover { background: var(--color-forest); color: #fff; border-color: var(--color-forest); }
+
+  /* tick list */
+  .check-list { @apply grid gap-[1.1vw]; }
+  .check-list li {
+    @apply relative text-body leading-[1.45];
+    padding-left: 2.4em;
+  }
+  .check-list li::before {
+    content: "";
+    position: absolute; left: 0; top: 0.05em;
+    width: 1.5em; height: 1.5em; border-radius: 999px;
+    background: var(--color-lime)
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23161e30' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 12.5l4 4 8-9'/%3E%3C/svg%3E")
+      center / 62% no-repeat;
+  }
+
+  /* numbered tile */
+  .tile {
+    @apply relative flex flex-col justify-between;
+    background: var(--color-forest);
+    color: #fff;
+    border-radius: var(--radius-img);
+    padding: 1.9vw;
+    min-height: 14vw;
+    transition: transform 0.6s var(--ease-out-expo);
+  }
+  .tile:hover { transform: translateY(-0.5vw); }
+  .tile__num {
+    @apply font-medium;
+    font-size: var(--text-h3);
+    color: var(--color-lime);
+  }
+
+  /* accordion (native <details>) */
+  .accordion details { border-top: 1px solid color-mix(in srgb, currentColor 25%, transparent); }
+  .accordion details:last-child { border-bottom: 1px solid color-mix(in srgb, currentColor 25%, transparent); }
+  .accordion summary {
+    @apply flex items-center justify-between gap-6 cursor-pointer list-none text-h3 uppercase;
+    padding: 1.5vw 0;
+    line-height: 1.15;
+  }
+  .accordion summary::-webkit-details-marker { display: none; }
+  .accordion summary::after {
+    content: "+";
+    @apply grid place-items-center rounded-full shrink-0 font-light;
+    width: clamp(2.25rem, 3.6vw, 4rem); aspect-ratio: 1;
+    background: var(--color-lime); color: var(--color-forest);
+    font-size: 1.6em; line-height: 1;
+    transition: transform 0.5s var(--ease-out-expo);
+  }
+  .accordion details[open] summary::after { transform: rotate(45deg); }
+  .accordion .accordion__body { padding: 0 0 1.8vw; max-width: 60ch; }
+
+  /* form */
+  .field { @apply grid gap-[0.5vw]; }
+  .field label { @apply uppercase font-semibold text-micro tracking-wide; }
+  .field input, .field textarea {
+    @apply w-full text-body outline-none;
+    font: inherit;
+    padding: 1vw 1.4vw;
+    min-height: 3rem;
+    background: var(--color-paper);
+    color: var(--color-forest);
+    border: 1px solid transparent;
+    border-radius: clamp(0.75rem, 1.4vw, 1.5rem);
+    transition: border-color 0.3s, box-shadow 0.3s;
+  }
+  .field textarea { min-height: 9rem; resize: vertical; }
+  .field input:focus, .field textarea:focus {
+    border-color: var(--color-forest);
+    box-shadow: 0 0 0 4px color-mix(in srgb, var(--color-lime) 55%, transparent);
+  }
+  .field [aria-invalid="true"] { border-color: #b3261e; }
+
+  /* mobile dropdown menu */
+  .mobile-menu {
+    position: fixed; z-index: 49;
+    top: calc(1.4vw + clamp(3.25rem, 6.2vw, 6.5rem) + 0.5rem);
+    left: 2.5vw; right: 2.5vw;
+    display: grid; gap: 0.25rem;
+    padding: 1rem;
+    background: var(--color-paper);
+    border-radius: 1.5rem;
+    box-shadow: 0 1.5rem 3rem rgb(0 0 0 / 0.25);
+  }
+  .mobile-menu[hidden] { display: none; }
+  .mobile-menu a { padding: 0.8rem 1rem; border-radius: 999px; font-weight: 500; }
+  .mobile-menu a[aria-current="page"], .mobile-menu a:hover { background: var(--color-lime); }
+
+  .nav__link[aria-current="page"] { text-decoration: underline; text-underline-offset: 0.5em; text-decoration-thickness: 2px; }
+}
+
+/* ---- Mortgage page blocks ---- */
+@layer components {
+  /* clips like .panel but keeps position:sticky working for children */
+  .panel--clip { overflow: clip; }
+
+  /* light pill button for dark panels */
+  .btn-pill--light { background: var(--color-lime); color: var(--color-forest); }
+  .btn-pill--light .btn-pill__dot { background: var(--color-forest); color: #fff; }
+  .btn-pill--light:hover { background: var(--color-mint); }
+
+  /* floating label over an image */
+  .badge {
+    @apply absolute inline-flex items-center gap-[0.6vw] uppercase font-semibold text-micro tracking-wide;
+    padding: 0.9em 1.3em;
+    background: var(--color-paper);
+    color: var(--color-forest);
+    border-radius: 999px;
+  }
+
+  /* rate comparison card: label, chart, facts */
+  .rate {
+    @apply relative flex flex-col justify-between gap-[1.6vw] text-white;
+    min-height: 27vw;
+    background: var(--color-forest);
+    border-radius: var(--radius-img);
+    padding: 1.9vw;
+  }
+  .rate__chart { width: 100%; height: clamp(5rem, 9vw, 10rem); overflow: visible; }
+  .rate__facts { @apply grid gap-[0.7vw] text-small leading-[1.45]; }
+  .rate__facts li { @apply relative; padding-left: 1.4em; }
+  .rate__facts li::before {
+    content: ""; position: absolute; left: 0; top: 0.45em;
+    width: 0.55em; height: 0.55em; border-radius: 999px; background: var(--color-lime);
+  }
+
+  /* big-number figure */
+  .stat { @apply grid gap-[0.6vw] pt-[1.2vw]; border-top: 1px solid color-mix(in srgb, currentColor 35%, transparent); }
+  .stat__value { @apply uppercase font-medium; font-size: var(--text-h2); line-height: 0.98; letter-spacing: -0.025em; }
+
+  /* numbered steps with oversized index */
+  .steps { counter-reset: step; }
+  .steps > li {
+    @apply grid gap-x-[2vw] gap-y-[0.6vw];
+    grid-template-columns: auto 1fr;
+    padding: 2.2vw 0;
+    border-top: 1px solid color-mix(in srgb, currentColor 22%, transparent);
+  }
+  .steps > li:last-child { border-bottom: 1px solid color-mix(in srgb, currentColor 22%, transparent); }
+  .steps > li::before {
+    counter-increment: step;
+    content: counter(step, decimal-leading-zero);
+    @apply font-medium row-span-2;
+    font-size: var(--text-h2);
+    line-height: 0.9;
+    color: var(--color-lime);
+    min-width: 2.2ch;
+  }
+}
+
+/* ---- Secured loans page blocks ---- */
+@layer components {
+  /* property equity diagram: stacked charges, bottom-up */
+  .charge {
+    @apply flex flex-col overflow-hidden;
+    height: clamp(18rem, 34vw, 38rem);
+    border-radius: var(--radius-img);
+    border: 1.5px solid var(--color-forest);
+  }
+  .charge__seg {
+    @apply flex items-end justify-between gap-4 uppercase font-semibold text-micro tracking-wide;
+    flex: 0 0 var(--h);
+    padding: 1.2vw 1.5vw;
+  }
+  .charge__seg b { @apply font-medium normal-case tracking-normal; font-size: var(--text-h3); }
+  .charge__seg--equity { background: var(--color-paper); color: var(--color-forest); }
+  .charge__seg--second { background: var(--color-rust); color: #fff; }
+  .charge__seg--first  { background: var(--color-forest); color: #fff; }
+
+  /* compact two-column numbered list */
+  .steps--grid { @apply md:grid md:grid-cols-2 md:gap-x-[3vw]; }
+  .steps--grid > li { padding: 1.3vw 0; }
+  .steps--grid > li::before { font-size: var(--text-h3); line-height: 1.1; }
+  @media (min-width: 48rem) {
+    .steps--grid > li:nth-last-child(2) { border-bottom: 1px solid color-mix(in srgb, currentColor 22%, transparent); }
+  }
+
+  /* oversized tag cloud */
+  .pill-xl {
+    @apply inline-flex items-center uppercase font-medium;
+    font-size: clamp(1.15rem, 2.5vw, 3rem);
+    letter-spacing: -0.01em;
+    padding: 0.55em 1.1em;
+    border: 1.5px solid currentColor;
+    border-radius: 999px;
+    transition: background-color 0.4s, color 0.4s, transform 0.6s var(--ease-out-expo);
+  }
+  .pill-xl:hover { background: var(--color-forest); color: #fff; transform: translateY(-0.3vw); }
+}
+
+/* ---- Insurance page blocks ---- */
+@layer components {
+  /* side-by-side comparison columns */
+  .versus { @apply grid md:grid-cols-2 gap-x-[3vw] gap-y-8; }
+  .versus > div { @apply grid content-start gap-[0.8vw] pt-[1.2vw]; border-top: 1.5px solid currentColor; }
+  .versus > div:last-child { border-top-color: var(--color-lime); }
+
+  /* small icon + label tile */
+  .amenity { @apply flex flex-col gap-[1vw] text-small leading-[1.4]; }
+  .amenity__icon {
+    @apply grid place-items-center rounded-full;
+    width: clamp(2.75rem, 4.2vw, 4.75rem); aspect-ratio: 1;
+    background: var(--color-forest); color: var(--color-lime);
+  }
+  .amenity__icon svg { width: 46%; height: 46%; }
+}
+
+/* ---- Contact page blocks ---- */
+@layer components {
+  /* quick-contact card: rows of label + value + arrow */
+  .contact-list {
+    @apply flex flex-col;
+    background: var(--color-paper);
+    color: var(--color-forest);
+    border-radius: var(--radius-img);
+    padding: 0.6vw 1.9vw;
+  }
+  .contact-list a, .contact-list > div {
+    @apply grid items-center gap-x-4;
+    grid-template-columns: 1fr auto;
+    padding: 1.3vw 0;
+    border-top: 1px solid color-mix(in srgb, currentColor 18%, transparent);
+  }
+  .contact-list > :first-child { border-top: 0; }
+  .contact-list small { @apply uppercase font-semibold text-micro tracking-wide opacity-60 col-start-1; }
+  .contact-list strong { @apply col-start-1; }
+  .contact-list strong { @apply font-medium text-body; }
+  .contact-list a > span[aria-hidden] {
+    @apply grid place-items-center rounded-full row-start-1 row-span-2 col-start-2;
+    width: clamp(2rem, 2.6vw, 3rem); aspect-ratio: 1;
+    background: var(--color-lime);
+    transition: transform 0.5s var(--ease-out-expo);
+  }
+  .contact-list a:hover > span[aria-hidden] { transform: translateX(0.25rem); }
+
+  /* large ruled list (areas covered) */
+  .area-list > li {
+    @apply flex items-baseline justify-between gap-4 uppercase font-medium;
+    font-size: clamp(1.6rem, 3.4vw, 4.2rem);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    padding: 0.9vw 0;
+    border-top: 1px solid color-mix(in srgb, currentColor 22%, transparent);
+  }
+  .area-list > li:last-child { border-bottom: 1px solid color-mix(in srgb, currentColor 22%, transparent); }
+  .area-list small { @apply text-micro font-semibold tracking-wide opacity-60; letter-spacing: 0.05em; }
+
+  /* initials avatar */
+  .avatar {
+    @apply grid place-items-center rounded-full font-medium shrink-0;
+    width: clamp(3.5rem, 6vw, 6.5rem); aspect-ratio: 1;
+    background: var(--color-lime); color: var(--color-forest);
+    font-size: clamp(1.1rem, 1.9vw, 2.1rem);
+  }
+
+  /* partner row */
+  .partner {
+    @apply grid gap-x-[3vw] gap-y-3 items-start md:grid-cols-12;
+    padding: 2vw 0;
+    border-top: 1px solid color-mix(in srgb, currentColor 22%, transparent);
+  }
+  .partner:last-child { border-bottom: 1px solid color-mix(in srgb, currentColor 22%, transparent); }
+}

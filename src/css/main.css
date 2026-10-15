@@ -1,0 +1,12 @@
+/* Entry point — Tailwind v4. Build: npm run build  ->  dist/css/style.css */
+@import "tailwindcss";
+@source "../../index.html";
+@source "../js";
+@source "../pages";
+@source "../partials";
+
+@import "./tokens.css";
+@import "./base.css";
+@import "./components.css";
+@import "./blocks.css";
+@import "./animations.css";

@@ -1,0 +1,45 @@
+/*
+ * Design tokens. Sizes were measured from the reference video, where the
+ * site canvas is ~732 units wide (1 unit ≈ 0.1366vw). Type and image sizes
+ * are fluid (vw) with rem clamps so large screens don't blow up.
+ */
+@theme {
+  /* type */
+  --font-sans: "Instrument Sans", "Helvetica Neue", Arial, sans-serif;
+
+  --text-hero: clamp(2.6rem, 7.3vw, 9rem);
+  /* hero headline        */
+  --text-giant: clamp(3.4rem, 10vw, 12rem);
+  /* "Start low / save"   */
+  --text-wordmark: clamp(4rem, 18.2vw, 22rem);
+  /* footer MORTGAGE      */
+  --text-h2: clamp(2rem, 4.2vw, 5.2rem);
+  /* section headings     */
+  --text-h3: clamp(1.05rem, 1.65vw, 2rem);
+  /* card / benefit title */
+  --text-body: clamp(0.8125rem, 1.08vw, 1.2rem);
+  /* section paragraphs   */
+  --text-small: clamp(0.6875rem, 0.88vw, 1rem);
+  /* card copy, meta      */
+  --text-micro: clamp(0.625rem, 0.78vw, 0.875rem);
+  /* nav, buttons, legal */
+
+  /* colour */
+  --color-ink: #121413;
+  --color-forest: #161e30;
+  --color-paper: #fcfcf7;
+  --color-lime: #6c9fe8;
+  --color-mint: #a8e8ff;
+  --color-rust: #c4652b;
+
+  /* radii (from video: panel ≈ 2.4vw, image ≈ 2.4vw, cards ≈ 2.2vw) */
+  --radius-panel: clamp(1.25rem, 2.4vw, 2.75rem);
+  --radius-img: clamp(1rem, 2.4vw, 2.75rem);
+
+  /* spacing rhythm: panel gutter ≈ 2.7vw */
+  --spacing-gutter: clamp(1rem, 2.7vw, 3.5rem);
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+}
+/* shared control height: pill buttons and the chips that sit beside them */
+:root { --btn-h: clamp(2.5rem, 3.6vw, 4rem); }

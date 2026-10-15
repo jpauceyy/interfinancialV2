@@ -1,0 +1,17 @@
+@layer base {
+  html {
+    scroll-behavior: auto; /* smoothing handled by Motion in smooth.js */
+    background: var(--color-ink);
+  }
+  body {
+    font-family: var(--font-sans);
+    color: var(--color-forest);
+    background: var(--color-ink);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  img { display: block; max-width: 100%; }
+  a { color: inherit; text-decoration: none; }
+  ::selection { background: var(--color-lime); color: var(--color-forest); }
+  :focus-visible { outline: 2px solid var(--color-lime); outline-offset: 3px; }
+}

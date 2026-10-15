@@ -1,0 +1,103 @@
+@layer components {
+  /* full-bleed section panel */
+  .panel {
+    @apply relative w-full min-h-svh overflow-hidden;
+    border-radius: 0;
+    padding: var(--spacing-gutter);
+  }
+
+  /* uppercase display type — Instrument Sans, tight, medium */
+  .display {
+    @apply uppercase font-medium;
+    line-height: 0.98;
+    letter-spacing: -0.025em;
+    font-variation-settings: "wdth" 100;
+  }
+
+  /* pill button with circular arrow */
+  .btn-pill {
+    @apply inline-flex items-center justify-between uppercase text-micro tracking-wide;
+    gap: 1.6vw;
+    padding: 0.3vw 0.3vw 0.3vw 1.4vw;
+    min-height: var(--btn-h);
+    background: var(--color-forest);
+    color: #fff;
+    border-radius: 999px;
+    transition: transform 0.6s var(--ease-out-expo), background-color 0.4s, color 0.4s;
+  }
+  .btn-pill__dot {
+    @apply grid place-items-center rounded-full;
+    height: clamp(2rem, 2.9vw, 3.25rem);
+    aspect-ratio: 1;
+    background: var(--color-paper);
+    color: var(--color-forest);
+    transition: transform 0.6s var(--ease-out-expo);
+  }
+  .btn-pill:hover { transform: scale(1.03); background: var(--color-lime); color: var(--color-forest); }
+  .btn-pill:hover .btn-pill__dot { transform: translateX(0.25rem); }
+
+  /* nav */
+  .nav {
+    @apply fixed z-50 flex items-center justify-between;
+    top: 1.4vw; left: 2.5vw; right: 2.5vw;
+    height: clamp(3.25rem, 6.2vw, 6.5rem);
+    padding: 0 0.9vw 0 2.2vw;
+    background: rgb(252 252 247 / 0.96);
+    border-radius: 999px;
+    backdrop-filter: blur(10px);
+  }
+  .nav__link { @apply uppercase font-semibold text-micro tracking-wide transition-opacity hover:opacity-50; }
+
+  /* solutions card */
+  .card {
+    @apply relative flex flex-col justify-between text-white;
+    background: var(--color-forest);
+    border-radius: var(--radius-img);
+    padding: 1.9vw;
+    min-height: 27vw;
+    transition: transform 0.6s var(--ease-out-expo);
+  }
+  .card:hover { transform: translateY(-0.6vw); }
+  .card__icon {
+    @apply grid place-items-center rounded-full;
+    width: clamp(3rem, 6.3vw, 7rem);
+    aspect-ratio: 1;
+    background: var(--color-lime);
+    color: var(--color-forest);
+  }
+
+  /* inline pills inside the hero headline — sized in em so they track the type */
+  .h-pill {
+    @apply inline-flex items-center align-middle overflow-hidden;
+    height: 0.74em;
+    border: max(2px, 0.03em) solid #fff;
+    border-radius: 999px;
+    transform: translateY(-0.06em);
+    background: transparent;
+  }
+  .h-pill--people { width: 2.2em; padding: 0 0.04em 0 0; margin-left: 0.18em; background: rgb(252 252 247 / 0.9); }
+  .h-pill--photo  { width: 1.6em; margin-right: 0.2em; border: 0; }
+  .h-pill--photo img { width: 100%; height: 100%; object-fit: cover; }
+  .h-pill__faces { display: flex; align-items: center; padding-left: 0.04em; }
+  .h-pill__faces img {
+    width: 0.62em; height: 0.62em; border-radius: 999px; object-fit: cover;
+    margin-left: -0.36em;
+    box-shadow: 0 0 0 0.025em rgb(252 252 247 / 0.9);
+  }
+  .h-pill__faces img:first-child { margin-left: 0; }
+  .h-pill__go {
+    @apply grid place-items-center rounded-full ml-auto;
+    width: 0.62em; height: 0.62em;
+    background: var(--color-lime);
+    color: var(--color-ink);
+    margin-left: auto;
+  }
+  .h-pill__go > span { font-size: 0.34em; line-height: 1; }
+}
+
+/* extra breathing room under content in stacked sections */
+@layer components {
+  .stack-item .panel {
+    padding-bottom: calc(var(--spacing-gutter) * 1.9);
+  }
+}
