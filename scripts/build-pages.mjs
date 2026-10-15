@@ -18,9 +18,15 @@ const markActive = (html, active) =>
 for (const file of readdirSync(join(root, 'src/pages')).filter((f) => f.endsWith('.html'))) {
   const raw = read(`src/pages/${file}`);
   const [head, ...rest] = raw.split(/^---\s*$/m);
-  const meta = Object.fromEntries(
-    head.trim().split('\n').map((l) => { const i = l.indexOf(':'); return [l.slice(0, i).trim(), l.slice(i + 1).trim()]; })
-  );
+  // `key: value` lines; a line without a key continues the previous value
+  // (editors' format-on-save can wrap a long description onto two lines)
+  const meta = {};
+  let last = null;
+  for (const l of head.trim().split(/\r?\n/)) {
+    const m = l.match(/^([a-z][\w-]*):\s*(.*)$/i);
+    if (m) { last = m[1]; meta[last] = m[2].trim(); }
+    else if (last && l.trim()) meta[last] += ' ' + l.trim();
+  }
   const body = rest.join('---');
 
   let html = layout
