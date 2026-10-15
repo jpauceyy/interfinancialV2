@@ -1,5 +1,6 @@
 /* Boot: wire modules and run scroll-linked updates on one rAF-throttled handler. */
 (function (M) {
+  M.splash ? M.splash() : (M.intro = Promise.resolve());
   M.reveal();
   M.menu && M.menu();
   M.form && M.form();

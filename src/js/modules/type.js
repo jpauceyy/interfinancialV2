@@ -13,7 +13,7 @@
         if (n === 0) { dir = 1; return setTimeout(tick, 450); }
         setTimeout(tick, dir > 0 ? 95 : 45);
       };
-      setTimeout(tick, parseInt(el.dataset.typeDelay, 10) || 1200);
+      (M.intro || Promise.resolve()).then(() => setTimeout(tick, parseInt(el.dataset.typeDelay, 10) || 1200));
     });
   };
 })((window.Mortgage = window.Mortgage || {}));

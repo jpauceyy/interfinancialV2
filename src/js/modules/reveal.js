@@ -69,11 +69,16 @@
         }
       });
     }, { threshold: [0, 0.1, 0.25, 0.5] });
-    document.querySelectorAll('[data-reveal], [data-words]').forEach((el) => io.observe(el));
+    const sections = [...document.querySelectorAll('[data-reveal], [data-words]')];
 
     const ioText = new IntersectionObserver((entries) => {
       entries.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('is-in'); ioText.unobserve(e.target); } });
     }, { threshold: 0.2 }); // no negative margin: text at the very bottom of the page must still trigger
-    [...tagText(), ...tagImages()].forEach((el) => ioText.observe(el));
+    const small = [...tagText(), ...tagImages()];
+    // hold everything until the splash hands over, so nothing animates behind it
+    (M.intro || Promise.resolve()).then(() => {
+      sections.forEach((el) => io.observe(el));
+      small.forEach((el) => ioText.observe(el));
+    });
   };
 })((window.Mortgage = window.Mortgage || {}));

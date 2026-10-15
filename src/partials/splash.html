@@ -1,0 +1,19 @@
+<!-- splash -->
+<script>
+  /* Show the splash once per browser session; must run before first paint. */
+  (function (d) {
+    var seen = false;
+    try { seen = sessionStorage.getItem('if-splash') === '1'; sessionStorage.setItem('if-splash', '1'); } catch (e) {}
+    if (seen) return;
+    d.classList.add('has-splash', 'splash-active');
+    window.__splashT0 = performance.now();
+  })(document.documentElement);
+</script>
+<div class="splash" aria-hidden="true">
+  <div class="splash__inner">
+    <img class="splash__logo" src="assets/logo.svg" alt="" width="180" height="180">
+    <span class="splash__word"><span>INTERFINANCIAL</span></span>
+    <span class="splash__bar"></span>
+  </div>
+</div>
+<!-- /splash -->

@@ -11,6 +11,26 @@
   <link rel="stylesheet" href="dist/css/style.css">
 </head>
 <body>
+<!-- splash -->
+<script>
+  /* Show the splash once per browser session; must run before first paint. */
+  (function (d) {
+    var seen = false;
+    try { seen = sessionStorage.getItem('if-splash') === '1'; sessionStorage.setItem('if-splash', '1'); } catch (e) {}
+    if (seen) return;
+    d.classList.add('has-splash', 'splash-active');
+    window.__splashT0 = performance.now();
+  })(document.documentElement);
+</script>
+<div class="splash" aria-hidden="true">
+  <div class="splash__inner">
+    <img class="splash__logo" src="assets/logo.svg" alt="" width="180" height="180">
+    <span class="splash__word"><span>INTERFINANCIAL</span></span>
+    <span class="splash__bar"></span>
+  </div>
+</div>
+<!-- /splash -->
+
 <header>
   <nav class="nav" aria-label="Primary">
     <a href="index.html" class="flex items-center gap-[0.5vw] text-[clamp(1rem,1.9vw,2.2rem)] font-semibold tracking-tight">
@@ -314,6 +334,7 @@
 <script src="src/js/modules/scrollscale.js"></script>
 <script src="src/js/modules/form.js"></script>
 <script src="src/js/modules/smooth.js"></script>
+<script src="src/js/modules/splash.js"></script>
 <script src="src/js/main.js"></script>
 </body>
 </html>

@@ -23,7 +23,10 @@
   from { transform: translateY(100%); clip-path: inset(-0.25em -0.1em 100% -0.1em); }
   to   { transform: none;             clip-path: inset(-0.25em -0.1em -0.25em -0.1em); }
 }
-.hero-title .cut { animation: line-up 1.1s var(--ease-out-expo) both; animation-delay: calc(0.2s + var(--i, 0) * 120ms); }
+/* --intro is the splash screen's hand-over time (0 when no splash), so the hero starts as it lifts */
+:root { --intro: 0s; }
+.has-splash { --intro: 1.9s; }
+.hero-title .cut { animation: line-up 1.1s var(--ease-out-expo) both; animation-delay: calc(var(--intro) + 0.2s + var(--i, 0) * 120ms); }
 
 /*
  * Hero pills swipe in once the headline has landed: a mask sweeps left to right
@@ -33,16 +36,16 @@
 @keyframes pill-swipe { from { clip-path: inset(0 100% 0 0 round 999px); } to { clip-path: inset(0 0 0 0 round 999px); } }
 @keyframes pill-slide { from { translate: -45% 0; scale: 1.25; } to { translate: 0 0; scale: 1; } }
 @keyframes face-in    { from { opacity: 0; transform: scale(0.6); } }
-.hero-title .h-pill--people { animation: pill-swipe 1.15s cubic-bezier(0.77, 0, 0.18, 1) 1.5s both; }
-.hero-title .h-pill--photo  { animation: pill-swipe 1.15s cubic-bezier(0.77, 0, 0.18, 1) 1.85s both; }
+.hero-title .h-pill--people { animation: pill-swipe 1.15s cubic-bezier(0.77, 0, 0.18, 1) calc(var(--intro) + 1.5s) both; }
+.hero-title .h-pill--photo  { animation: pill-swipe 1.15s cubic-bezier(0.77, 0, 0.18, 1) calc(var(--intro) + 1.85s) both; }
 .hero-title .h-pill--photo img,
 .hero-title .h-pill__faces { animation: pill-slide 1.4s var(--ease-out-expo) both; }
-.hero-title .h-pill--people .h-pill__faces { animation-delay: 1.5s; }
-.hero-title .h-pill--photo img            { animation-delay: 1.85s; }
+.hero-title .h-pill--people .h-pill__faces { animation-delay: calc(var(--intro) + 1.5s); }
+.hero-title .h-pill--photo img            { animation-delay: calc(var(--intro) + 1.85s); }
 .hero-title .h-pill__faces img { animation: face-in 0.7s var(--ease-out-expo) both; }
-.hero-title .h-pill__faces img:nth-child(1) { animation-delay: 2.05s; }
-.hero-title .h-pill__faces img:nth-child(2) { animation-delay: 2.15s; }
-.hero-title .h-pill__faces img:nth-child(3) { animation-delay: 2.25s; }
+.hero-title .h-pill__faces img:nth-child(1) { animation-delay: calc(var(--intro) + 2.05s); }
+.hero-title .h-pill__faces img:nth-child(2) { animation-delay: calc(var(--intro) + 2.15s); }
+.hero-title .h-pill__faces img:nth-child(3) { animation-delay: calc(var(--intro) + 2.25s); }
 
 /* giant headline grows as its section scrolls away (scale set by scrollscale.js) */
 [data-scroll-scale] { transform-origin: 50% 100%; will-change: transform; }
@@ -83,10 +86,19 @@
   will-change: transform, filter;
 }
 
+/*
+ * Reduced motion: keep every reveal, but as a plain fade. No sliding, zooming or
+ * swiping, which is what the setting asks to avoid.
+ */
+@keyframes fade-in { from { opacity: 0; } }
 @media (prefers-reduced-motion: reduce) {
-  .cut, .rise, .txt { opacity: 1; transform: none; transition: none; clip-path: none; animation: none; }
-  .img-in { opacity: 1; scale: 1; transition: none; }
-  .hero-title .h-pill, .hero-title .h-pill__faces, .hero-title .h-pill__faces img, .hero-title .h-pill--photo img { animation: none; }
+  .cut { transform: none; clip-path: none; opacity: 0; transition: opacity 0.9s ease; transition-delay: calc(var(--i, 0) * 90ms); }
+  .is-in .cut { opacity: 1; }
+  .hero-title .cut { animation-name: fade-in; }
+  .rise, .txt { transform: none; }
+  .img-in { scale: 1; }
+  .hero-title .h-pill, .hero-title .h-pill__faces img { animation-name: fade-in; }
+  .hero-title .h-pill__faces, .hero-title .h-pill--photo img, .hero-img { animation: none; }
 }
 
 /* header: shrinks to a compact pill after scrolling */
@@ -108,7 +120,40 @@
 
 /* hero: slow settle on load */
 @keyframes settle { from { scale: 1.12; } to { scale: 1; } }
-.hero-img { animation: settle 2.4s var(--ease-out-expo) both; }
+.hero-img { animation: settle 2.4s var(--ease-out-expo) var(--intro) both; }
+@media (prefers-reduced-motion: reduce) { .hero-img { animation: fade-in 1.2s ease var(--intro) both; } }
+
+/*
+ * Splash: crest rises in, wordmark slides up from its mask, a progress line fills,
+ * then the screen wipes upward to hand over to the hero at --intro.
+ * Only shown when the inline script in partials/splash.html adds .has-splash.
+ */
+.splash {
+  position: fixed; inset: 0; z-index: 100;
+  display: none; place-items: center;
+  background: var(--color-paper); color: var(--color-forest);
+}
+.has-splash .splash { display: grid; animation: splash-out 1s cubic-bezier(0.77, 0, 0.18, 1) calc(var(--intro) - 0.25s) both; }
+/* paint the page light from the first frame so there is no dark flash before the splash */
+html.splash-active, html.splash-active body { overflow: hidden; background: var(--color-paper); }
+.splash__inner { display: flex; flex-direction: column; align-items: center; gap: clamp(0.9rem, 1.4vw, 1.5rem); }
+.has-splash .splash__inner { animation: splash-lift 1s cubic-bezier(0.77, 0, 0.18, 1) calc(var(--intro) - 0.25s) both; }
+.splash__logo { width: clamp(96px, 10.5vw, 180px); height: auto; animation: splash-logo 1.1s var(--ease-out-expo) 0.1s both; }
+.splash__word { display: block; overflow: hidden; padding-bottom: 0.1em; font-weight: 600; letter-spacing: 0.24em; font-size: clamp(0.95rem, 1.45vw, 1.6rem); }
+.splash__word > span { display: block; animation: splash-word 1s var(--ease-out-expo) 0.45s both; }
+.splash__bar { position: relative; overflow: hidden; width: clamp(120px, 13vw, 230px); height: 2px; border-radius: 2px; background: color-mix(in srgb, var(--color-forest) 12%, transparent); }
+.splash__bar::after { content: ""; position: absolute; inset: 0; background: var(--color-lime); transform-origin: left; animation: splash-bar 1.15s cubic-bezier(0.65, 0, 0.35, 1) 0.45s both; }
+@keyframes splash-out  { from { clip-path: inset(0 0 0 0); } to { clip-path: inset(0 0 100% 0); } }
+@keyframes splash-lift { to { transform: translateY(-14vh); opacity: 0; } }
+@keyframes splash-logo { from { opacity: 0; transform: translateY(22px) scale(0.86); } }
+@keyframes splash-word { from { transform: translateY(110%); } }
+@keyframes splash-bar  { from { transform: scaleX(0); } }
+@keyframes fade-out    { to { opacity: 0; } }
+@media (prefers-reduced-motion: reduce) {
+  .has-splash .splash { animation-name: fade-out; }
+  .has-splash .splash__inner, .splash__bar::after { animation: none; }
+  .splash__logo, .splash__word > span { animation-name: fade-in; }
+}
 
 /* image zoom on card hover */
 .zoom img { transition: transform 1.2s var(--ease-out-expo); }

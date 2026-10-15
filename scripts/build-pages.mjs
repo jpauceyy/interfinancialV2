@@ -24,6 +24,7 @@ for (const file of readdirSync(join(root, 'src/pages')).filter((f) => f.endsWith
   const body = rest.join('---');
 
   let html = layout
+    .replace('{{> splash}}', partial('splash'))
     .replace('{{> header}}', partial('header'))
     .replace('{{> footer}}', partial('footer'))
     .replace('{{content}}', body)
@@ -37,7 +38,11 @@ for (const file of readdirSync(join(root, 'src/pages')).filter((f) => f.endsWith
   console.log('built', file);
 }
 
-// index.html is hand-built; keep its header in sync with the shared partial
-const home = read('index.html');
-writeFileSync(join(root, 'index.html'), home.replace(/<header>[\s\S]*?<\/header>/, () => markActive(partial('header').trim(), 'home')));
-console.log('synced header into index.html');
+// index.html is hand-built; keep its splash and header in sync with the shared partials
+const splash = partial('splash').trim();
+let home = read('index.html').replace(/<header>[\s\S]*?<\/header>/, () => markActive(partial('header').trim(), 'home'));
+home = /<!-- splash -->[\s\S]*?<!-- \/splash -->/.test(home)
+  ? home.replace(/<!-- splash -->[\s\S]*?<!-- \/splash -->/, () => splash)
+  : home.replace(/<body>\s*/, (m) => m + splash + '\n\n');
+writeFileSync(join(root, 'index.html'), home);
+console.log('synced splash + header into index.html');

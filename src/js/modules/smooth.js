@@ -38,6 +38,8 @@
 
     addEventListener('wheel', (e) => {
       if (e.ctrlKey || e.defaultPrevented) return;
+      // page is locked while the splash screen is up
+      if (document.documentElement.classList.contains('splash-active')) { e.preventDefault(); return; }
       // let nested scrollers (textareas etc.) handle their own wheel
       if (e.target.closest && e.target.closest('textarea, [data-native-scroll]')) return;
       e.preventDefault();
