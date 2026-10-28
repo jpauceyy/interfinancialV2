@@ -188,3 +188,11 @@ html.splash-active, html.splash-active body { overflow: hidden; background: var(
 .charge { clip-path: inset(100% 0 0 0 round var(--radius-img)); transition: clip-path 1.6s var(--ease-out-expo) 0.2s; }
 .is-in .charge { clip-path: inset(0 0 0 0 round var(--radius-img)); }
 @media (prefers-reduced-motion: reduce) { .charge { clip-path: none; transition: none; } }
+
+/* shared scroll-driven background (bgshift.js); panels go transparent once JS takes over */
+[data-bg-group].is-shifting {
+  background-color: var(--bg);
+  color: var(--fg);
+  transition: background-color 0.8s ease, color 0.8s ease;
+}
+[data-bg-group].is-shifting .panel { background-color: transparent; color: inherit; }

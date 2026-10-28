@@ -5,7 +5,7 @@
   M.menu && M.menu();
   M.form && M.form();
   M.type && M.type();
-  const updaters = [M.stack(), M.horizontal(), M.parallax(), M.nav(), M.scrollScale ? M.scrollScale() : () => {}];
+  const updaters = [M.stack(), M.horizontal(), M.parallax(), M.nav(), M.scrollScale ? M.scrollScale() : () => {}, M.bgShift ? M.bgShift() : () => {}];
 
   let queued = false;
   const run = () => { queued = false; updaters.forEach((u) => u()); };

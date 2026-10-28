@@ -1,3 +1,5 @@
 node_modules/
 btd/
 public/
+Check-NetworkSpeed.ps1
+Run-NetworkCheck.bat
