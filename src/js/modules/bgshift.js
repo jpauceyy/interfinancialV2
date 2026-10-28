@@ -1,12 +1,12 @@
 /*
  * Scroll-driven background: sections inside [data-bg-group] share one background
  * that blends from one section's colour to the next as the next section rises
- * through the screen (from entering at the bottom to reaching the top fifth),
+ * through the screen (from 60% of a screen below view to reaching the top fifth),
  * so the shift is tied to scroll position rather than a timed fade.
  * Colours are read from each panel's bg-/text- classes, so the markup stays the source.
  */
 (function (M) {
-  const START = 1;    // blend starts when the next section's top is at the bottom of the screen...
+  const START = 1.6;  // blend starts while the next section is still 60% of a screen below view...
   const END = 0.2;    // ...and finishes when it reaches 20% from the top
 
   const rgb = (c) => (c.match(/[\d.]+/g) || [0, 0, 0]).slice(0, 3).map(Number);
