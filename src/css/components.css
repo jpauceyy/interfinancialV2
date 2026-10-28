@@ -105,7 +105,7 @@
 
 /* homepage slider as a swipe carousel on phones */
 @media (max-width: 47.99rem) {
-  [data-hscroll-track] { scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+  [data-hscroll-track] { overflow-y: hidden; overscroll-behavior-x: contain; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
   [data-hscroll-track]::-webkit-scrollbar { display: none; }
 }
 /* phone carousel drift: scrollLeft carries whole pixels, --drift the sub-pixel remainder (set by horizontal.js) */
