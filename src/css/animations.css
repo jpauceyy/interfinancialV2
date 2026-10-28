@@ -193,6 +193,6 @@ html.splash-active, html.splash-active body { overflow: hidden; background: var(
 [data-bg-group].is-shifting {
   background-color: var(--bg);
   color: var(--fg);
-  transition: background-color 0.8s ease, color 0.8s ease;
+  transition: color 0.6s ease;
 }
 [data-bg-group].is-shifting .panel { background-color: transparent; color: inherit; }
